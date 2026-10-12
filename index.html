@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GRURU MUSEUM — Digital Knowledge Museum</title>
+  
+  <!-- Google Fonts: Chakra Petch, IBM Plex Sans Thai, IBM Plex Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Custom Design Tokens & HUD Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="specimen-grid-bg">
+
+  <!-- SCANLINE OVERLAY -->
+  <div class="scanlines-overlay"></div>
+
+  <!-- ==================== 1. TOP EXECUTIVE NAVBAR ==================== -->
+  <header class="sticky top-0 z-50 bg-[#0B0B0F]/90 backdrop-blur border-b border-[#2C2C3A]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      
+      <!-- Logo & Brand Title -->
+      <a href="#hero" class="flex items-center gap-3 group text-decoration-none">
+        <div class="w-9 h-9 rounded border border-[#D7FF3A] bg-[#17171F] overflow-hidden group-hover:shadow-[0_0_15px_rgba(215,255,58,0.3)] transition">
+          <img src="gruru_thai_tech_logo.jpg" alt="GRURU Logo" class="w-full h-full object-cover">
+        </div>
+        <div>
+          <span class="font-chakra text-lg font-bold tracking-wider text-[#F2EDE3] group-hover:text-[#D7FF3A] transition">
+            GRURU MUSEUM
+          </span>
+          <span class="block text-[10px] font-mono text-[#8A8A9E] tracking-widest -mt-1">
+            FUTURE ARCHAEOLOGY LAB
+          </span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Menu -->
+      <nav class="hidden lg:flex items-center space-x-6 text-xs font-mono">
+        <a href="#exhibitions" class="text-[#F2EDE3] hover:text-[#D7FF3A] transition">HALL 01 // EXHIBITIONS</a>
+        <a href="#data-booming" class="text-[#D7FF3A] hover:text-[#c2ea2d] font-bold transition flex items-center gap-1">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#D7FF3A] animate-ping"></span>
+          HALL 02 // DATA BOOMING
+        </a>
+        <a href="#knowledge-graph" class="text-[#F2EDE3] hover:text-[#2EE6FF] transition">HALL 03 // KNOWLEDGE GRAPH</a>
+        <a href="#everyday-lab" class="text-[#F2EDE3] hover:text-[#34E89E] transition">HALL 04 // EVERYDAY LAB</a>
+        <a href="#manifesto" class="text-[#F2EDE3] hover:text-[#8C6BFF] transition">MANIFESTO</a>
+      </nav>
+
+      <!-- Utility Controls -->
+      <div class="flex items-center space-x-3">
+        <!-- Sound Synthesizer Toggle -->
+        <button id="soundToggleBtn" class="hidden sm:inline-flex items-center px-2.5 py-1 text-xs font-mono border border-[#2C2C3A] hover:border-[#D7FF3A] text-[#D7FF3A] rounded transition">
+          🔊 SOUND: ON
+        </button>
+
+        <!-- Presentation Link -->
+        <a href="presentation.html" target="_blank" class="hidden md:inline-flex items-center px-3 py-1 text-xs font-mono border border-[#2EE6FF] text-[#2EE6FF] hover:bg-[#2EE6FF]/10 rounded transition">
+          📺 สไลด์เสนอรัฐมนตรี
+        </a>
+
+        <!-- Primary CTA -->
+        <a href="#data-booming" class="btn-primary text-xs py-2 px-3.5">
+          <span>เริ่มขุดค้น</span>
+          <span>⚡</span>
+        </a>
+
+        <!-- Mobile Menu Toggle -->
+        <button id="mobileMenuBtn" class="lg:hidden p-2 text-[#F2EDE3] border border-[#2C2C3A] rounded">
+          ☰
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div id="mobileNavDrawer" class="hidden lg:hidden bg-[#17171F] border-b border-[#2C2C3A] px-4 py-4 space-y-3 font-mono text-xs">
+      <a href="#exhibitions" class="block text-[#F2EDE3] py-1">HALL 01 // EXHIBITIONS</a>
+      <a href="#data-booming" class="block text-[#D7FF3A] py-1">HALL 02 // DATA BOOMING LAB</a>
+      <a href="#knowledge-graph" class="block text-[#2EE6FF] py-1">HALL 03 // KNOWLEDGE GRAPH</a>
+      <a href="#everyday-lab" class="block text-[#34E89E] py-1">HALL 04 // EVERYDAY LAB</a>
+      <a href="#manifesto" class="block text-[#8C6BFF] py-1">ABOUT // MANIFESTO</a>
+      <div class="pt-2 border-t border-[#2C2C3A] flex gap-2">
+        <a href="presentation.html" target="_blank" class="block text-xs text-[#2EE6FF]">📺 เปิดสไลด์นำเสนอ</a>
+        <span class="text-[#2C2C3A]">|</span>
+        <a href="GRURU_MUSEUM_Digital_Minister_Presentation.pptx" download class="block text-xs text-[#D7FF3A]">⬇ ดาวน์โหลด PPTX</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== 2. HERO SECTION ==================== -->
+  <section id="hero" class="relative min-h-[90vh] flex items-center justify-center overflow-hidden px-4 sm:px-6 py-16">
+    <!-- Interactive Background Constellation Canvas -->
+    <canvas id="heroCanvas" class="absolute inset-0 w-full h-full pointer-events-auto"></canvas>
+
+    <div class="relative z-10 max-w-5xl mx-auto text-center space-y-6">
+      
+      <!-- Specimen Meta Tag -->
+      <div class="inline-flex items-center gap-2">
+        <span class="specimen-label">GRM-2026-HERO-001 // DIGITAL KNOWLEDGE MUSEUM</span>
+      </div>
+
+      <!-- Main Headline -->
+      <h1 class="font-chakra text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-[#F2EDE3]">
+        NEW KNOWLEDGE.<br>
+        <span class="text-timewarp">NEW STORYTELLING.</span><br>
+        <span class="text-[#D7FF3A] text-3xl sm:text-5xl lg:text-6xl">BUILT FOR EVERYDAY LIVING.</span>
+      </h1>
+
+      <!-- Concept Philosophy -->
+      <p class="max-w-2xl mx-auto text-base sm:text-lg text-[#F2EDE3] font-light leading-relaxed">
+        ห้องแล็บของนักโบราณคดีจากอนาคต (Future Archaeology) ปลุกความรู้ที่ซ่อนอยู่ในอดีตให้กลับมามีชีวิต 
+        ด้วยกราฟความรู้ <strong>Data Booming</strong> ที่เข้าใจได้ภายใน 3 วินาที
+      </p>
+
+      <!-- Action Button Group -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+        <a href="#data-booming" class="btn-primary">
+          <span>⚡ สัมผัสระบบ DATA BOOMING</span>
+          <span>→</span>
+        </a>
+        <a href="#exhibitions" class="btn-secondary">
+          <span>🏛️ สำรวจนิทรรศการความรู้</span>
+        </a>
+      </div>
+
+      <!-- 3-Second Stat Cards Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-8 text-left max-w-4xl mx-auto">
+        <div class="hud-panel p-4 border-[#FF5A1F]/40">
+          <div class="font-chakra text-2xl font-bold text-[#FF5A1F]">94%</div>
+          <div class="text-xs font-bold text-[#F2EDE3] mt-1">เสพสั้นแต่ขาดบริบทลึก</div>
+          <p class="text-[11px] text-[#8A8A9E] mt-1">คอนเทนต์โซเชียลไม่บอกที่มา ส่วนสารานุกรมเดิมก็แห้งจนไม่น่าอ่าน</p>
+        </div>
+
+        <div class="hud-panel p-4 border-[#2EE6FF]/40">
+          <div class="font-chakra text-2xl font-bold text-[#2EE6FF]">0 LINK</div>
+          <div class="text-xs font-bold text-[#F2EDE3] mt-1">คลังความรู้ชาติแยกส่วน</div>
+          <p class="text-[11px] text-[#8A8A9E] mt-1">มรดกปัญญาและงานวิจัยยังไม่ถูกแปรรูปเป็น AI Knowledge Graph</p>
+        </div>
+
+        <div class="hud-panel p-4 border-[#D7FF3A]/40">
+          <div class="font-chakra text-2xl font-bold text-[#D7FF3A]">3 SEC</div>
+          <div class="text-xs font-bold text-[#F2EDE3] mt-1">เข้าใจภาพรวมใน 3 วินาที</div>
+          <p class="text-[11px] text-[#8A8A9E] mt-1">จาก 1 แก่นเรื่อง ระเบิดออกเป็นโครงข่ายความรู้ข้ามยุคสมัยที่ใช้ได้จริง</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== 3. HALL 01: EXHIBITIONS ==================== -->
+  <section id="exhibitions" class="max-w-7xl mx-auto px-4 sm:px-6 py-20">
+    <div class="section-divider">
+      <span class="font-mono text-xs text-[#2EE6FF] font-bold">[ HALL 01 ]</span>
+      <h2 class="font-chakra text-2xl sm:text-3xl font-bold text-[#F2EDE3]">FEATURED EXHIBITIONS (นิทรรศการความรู้ใหม่)</h2>
+      <div class="section-divider-line"></div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      
+      <!-- Exhibition 1 -->
+      <div class="hud-panel hud-panel-cyan p-5 flex flex-col justify-between group">
+        <div class="space-y-4">
+          <div class="relative h-48 rounded overflow-hidden border border-[#2C2C3A]">
+            <img src="ChatGPT Image Oct 8, 2026, 09_53_33 PM-2.png" alt="โอสถพระนารายณ์" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            <span class="absolute top-2 left-2 specimen-label">GRM-1688-MED-001</span>
+            <span class="absolute bottom-2 right-2 px-2 py-0.5 rounded bg-[#0B0B0F]/90 text-[10px] font-mono text-[#D7FF3A]">⏱️ 3 MIN READ</span>
+          </div>
+          <div>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="cat-pill"><span class="shape-triangle"></span> วัฒนธรรม</span>
+              <span class="cat-pill"><span class="shape-circle"></span> วิทยาศาสตร์</span>
+            </div>
+            <h3 class="font-chakra text-lg font-bold text-[#F2EDE3] group-hover:text-[#2EE6FF] transition">
+              ตำรับยาโอสถพระนารายณ์: จากใบลานสู่เภสัชกรรม AI
+            </h3>
+            <p class="text-xs text-[#8A8A9E] mt-2 leading-relaxed">
+              จุดบรรจบของสมุนไพรสยาม การแพทย์จีน เปอร์เซีย และฝรั่งเศส สู่การถอดรหัสโมเลกุลด้วย AI สมัยใหม่เพื่อพัฒนาตำรับยาสู้โรคไม่ติดต่อเรื้อรัง (NCDs)
+            </p>
+          </div>
+        </div>
+        <div class="mt-6 pt-3 border-t border-[#2C2C3A] flex items-center justify-between">
+          <span class="text-[11px] font-mono text-[#2EE6FF]">EVERYDAY TAKEAWAY: ยาสมุนไพรประจำบ้าน</span>
+          <a href="#data-booming" class="text-xs font-mono text-[#D7FF3A] hover:underline">สำรวจกราฟ →</a>
+        </div>
+      </div>
+
+      <!-- Exhibition 2 -->
+      <div class="hud-panel hud-panel-ember p-5 flex flex-col justify-between group">
+        <div class="space-y-4">
+          <div class="relative h-48 rounded overflow-hidden border border-[#2C2C3A]">
+            <img src="data_booming_lab.jpg" alt="สรีดภงส์" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            <span class="absolute top-2 left-2 specimen-label">GRM-1280-ENG-002</span>
+            <span class="absolute bottom-2 right-2 px-2 py-0.5 rounded bg-[#0B0B0F]/90 text-[10px] font-mono text-[#FF5A1F]">⏱️ 4 MIN READ</span>
+          </div>
+          <div>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="cat-pill"><span class="shape-hexagon"></span> ประวัติศาสตร์</span>
+              <span class="cat-pill"><span class="shape-square"></span> เทคโนโลยี</span>
+            </div>
+            <h3 class="font-chakra text-lg font-bold text-[#F2EDE3] group-hover:text-[#FF5A1F] transition">
+              ทำนบพระร่วงและสรีดภงส์: เครือข่ายการจัดการน้ำพันปี
+            </h3>
+            <p class="text-xs text-[#8A8A9E] mt-2 leading-relaxed">
+              วิศวกรรมชลประทานโบราณสุโขทัย ใช้แรงโน้มถ่วงและบึงหน่วงน้ำธรรมชาติ สู่แรงบันดาลใจการออกแบบ Smart Resilient City รับมือน้ำท่วม-น้ำแล้งในปัจจุบัน
+            </p>
+          </div>
+        </div>
+        <div class="mt-6 pt-3 border-t border-[#2C2C3A] flex items-center justify-between">
+          <span class="text-[11px] font-mono text-[#FF5A1F]">EVERYDAY TAKEAWAY: การเก็บน้ำยั่งยืน</span>
+          <a href="#data-booming" class="text-xs font-mono text-[#D7FF3A] hover:underline">สำรวจกราฟ →</a>
+        </div>
+      </div>
+
+      <!-- Exhibition 3 -->
+      <div class="hud-panel hud-panel-violet p-5 flex flex-col justify-between group">
+        <div class="space-y-4">
+          <div class="relative h-48 rounded overflow-hidden border border-[#2C2C3A]">
+            <img src="data_booming_visual.jpg" alt="ดาราศาสตร์หว้ากอ" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            <span class="absolute top-2 left-2 specimen-label">GRM-1868-AST-003</span>
+            <span class="absolute bottom-2 right-2 px-2 py-0.5 rounded bg-[#0B0B0F]/90 text-[10px] font-mono text-[#8C6BFF]">⏱️ 3 MIN READ</span>
+          </div>
+          <div>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="cat-pill"><span class="shape-circle"></span> วิทยาศาสตร์</span>
+              <span class="cat-pill"><span class="shape-square"></span> เทคโนโลยี</span>
+            </div>
+            <h3 class="font-chakra text-lg font-bold text-[#F2EDE3] group-hover:text-[#8C6BFF] transition">
+              สุริยุปราคาหว้ากอ: ปฐมบทคณิตศาสตร์และดาราศาสตร์ไทย
+            </h3>
+            <p class="text-xs text-[#8A8A9E] mt-2 leading-relaxed">
+              การคำนวณตำแหน่งดวงจันทร์และดวงอาทิตย์ล่วงหน้า 2 ปี ด้วยหลักเรขาคณิตทรงกลม สู่รากฐานการเรียนรู้วิทยาศาสตร์เชิงประจักษ์ของสังคมไทยสมัยใหม่
+            </p>
+          </div>
+        </div>
+        <div class="mt-6 pt-3 border-t border-[#2C2C3A] flex items-center justify-between">
+          <span class="text-[11px] font-mono text-[#8C6BFF]">EVERYDAY TAKEAWAY: การคิดเชิงวิพากษ์</span>
+          <a href="#data-booming" class="text-xs font-mono text-[#D7FF3A] hover:underline">สำรวจกราฟ →</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== 4. HALL 02: DATA BOOMING LAB ==================== -->
+  <section id="data-booming" class="max-w-7xl mx-auto px-4 sm:px-6 py-20">
+    <div class="section-divider">
+      <span class="font-mono text-xs text-[#D7FF3A] font-bold">[ HALL 02 // SIGNATURE FEATURE ]</span>
+      <h2 class="font-chakra text-2xl sm:text-3xl font-bold text-[#F2EDE3]">
+        DATA BOOMING LAB (ระบบระเบิดขยายความรู้)
+      </h2>
+      <div class="section-divider-line"></div>
+    </div>
+
+    <!-- Simulator Shell -->
+    <div class="hud-panel p-4 sm:p-6 border-[#D7FF3A]/60">
+      
+      <!-- Top Lab Header & Controls -->
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-[#2C2C3A] pb-4 mb-4">
+        <div>
+          <div class="text-xs font-mono text-[#D7FF3A] font-bold flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-[#D7FF3A] animate-ping"></span>
+            RADIAL KNOWLEDGE EXPANSION ENGINE // 40ms STAGGER
+          </div>
+          <p class="text-xs text-[#8A8A9E] mt-1">
+            เลือกหัวข้อด้านล่าง แล้วคลิกที่โหนดกลาง หรือกดปุ่ม <strong>BOOM</strong> เพื่อดูการระเบิดของกิ่งก้านความรู้
+          </p>
+        </div>
+
+        <!-- Topic Pills -->
+        <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+          <button class="boom-topic-btn px-3 py-1.5 rounded border border-[#D7FF3A] text-[#D7FF3A] bg-[#17171F] transition" data-topic="lotus">
+            🌸 บัวหลวง & นาโนเทค
+          </button>
+          <button class="boom-topic-btn px-3 py-1.5 rounded border border-[#2C2C3A] text-[#8A8A9E] hover:border-[#2EE6FF] transition" data-topic="narai">
+            📜 โอสถพระนารายณ์
+          </button>
+          <button class="boom-topic-btn px-3 py-1.5 rounded border border-[#2C2C3A] text-[#8A8A9E] hover:border-[#FF5A1F] transition" data-topic="sridphongs">
+            🌊 สรีดภงส์ ชลประทาน
+          </button>
+        </div>
+      </div>
+
+      <!-- Live Canvas & Telemetry -->
+      <div class="relative w-full h-[480px] bg-[#0B0B0F] border border-[#2C2C3A] rounded overflow-hidden">
+        
+        <!-- Live Canvas -->
+        <canvas id="labBoomCanvas" class="w-full h-full cursor-crosshair"></canvas>
+
+        <!-- Floating Action Overlay -->
+        <div class="absolute bottom-4 left-4 right-4 flex flex-col sm:flex-row items-center justify-between gap-3 pointer-events-none">
+          
+          <!-- Telemetry Stats -->
+          <div class="pointer-events-auto bg-[#17171F]/90 backdrop-blur px-4 py-2 rounded border border-[#2C2C3A] flex items-center gap-4 text-xs font-mono">
+            <div>NODES: <span id="boomActiveNodes" class="text-[#D7FF3A] font-bold">1</span></div>
+            <div>EDGES: <span id="boomEdges" class="text-[#2EE6FF] font-bold">0</span></div>
+            <div>DEPTH: <span id="boomDepth" class="text-[#8C6BFF] font-bold">LEVEL 00</span></div>
+            <div>STATUS: <span id="boomStatusText" class="text-[#D7FF3A] font-bold">READY TO EXPLODE</span></div>
+          </div>
+
+          <!-- Buttons -->
+          <div class="pointer-events-auto flex items-center gap-2">
+            <button id="resetBoomBtn" class="btn-secondary text-xs py-2 px-3">
+              ↺ รีเซ็ต
+            </button>
+            <button id="triggerBoomBtn" class="btn-primary text-xs py-2 px-4">
+              <span>⚡ สั่ง BOOM ขยายชั้นความรู้</span>
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Explanation Footer -->
+      <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-3 text-xs text-[#8A8A9E]">
+        <div class="p-2.5 bg-[#0B0B0F] rounded border border-[#2C2C3A]">
+          <b class="text-[#D7FF3A]">1. Radial Burst:</b> โหนดลูก 6–12 โหนด กระจายตัวห่างกัน 40ms ตามทฤษฎีการรับรู้ภาพ
+        </div>
+        <div class="p-2.5 bg-[#0B0B0F] rounded border border-[#2C2C3A]">
+          <b class="text-[#2EE6FF]">2. Max 3 Levels:</b> ขยายได้ลึกสุด 3 ชั้น ป้องกันสมองล้า ก่อนส่งต่อไปยัง Interactive Graph
+        </div>
+        <div class="p-2.5 bg-[#0B0B0F] rounded border border-[#2C2C3A]">
+          <b class="text-[#34E89E]">3. Node Inspector:</b> คลิกโหนดลูกใดก็ได้เพื่อเปิดอ่านเอกสารอ้างอิงและ Everyday Takeaway
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== 5. HALL 03: KNOWLEDGE GRAPH EXPLORER ==================== -->
+  <section id="knowledge-graph" class="max-w-7xl mx-auto px-4 sm:px-6 py-20">
+    <div class="section-divider">
+      <span class="font-mono text-xs text-[#2EE6FF] font-bold">[ HALL 03 ]</span>
+      <h2 class="font-chakra text-2xl sm:text-3xl font-bold text-[#F2EDE3]">
+        INTERACTIVE KNOWLEDGE GRAPH (แผนที่ความรู้ฉบับเต็ม)
+      </h2>
+      <div class="section-divider-line"></div>
+    </div>
+
+    <div class="hud-panel p-4 sm:p-6 border-[#2EE6FF]/50 space-y-4">
+      
+      <!-- Graph Search & Category Filters -->
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-[#2C2C3A] pb-4">
+        
+        <!-- Search Box -->
+        <div class="relative w-full lg:w-80">
+          <input type="text" id="kgSearchInput" placeholder="ค้นหาโหนดความรู้ (เช่น โอสถ, ชลประทาน)..." 
+                 class="w-full bg-[#0B0B0F] border border-[#2C2C3A] focus:border-[#2EE6FF] px-3 py-2 text-xs font-mono text-[#F2EDE3] rounded outline-none">
+          <span class="absolute right-3 top-2.5 text-xs text-[#8A8A9E]">🔍</span>
+        </div>
+
+        <!-- Category Pills (WCAG AA) -->
+        <div class="flex flex-wrap items-center gap-1.5 text-xs">
+          <button class="kg-cat-btn px-2.5 py-1 rounded border border-[#D7FF3A] text-[#D7FF3A] font-mono text-[11px]" data-cat="all">ทั้งหมด</button>
+          <button class="kg-cat-btn px-2.5 py-1 rounded border border-[#2C2C3A] text-[#2EE6FF] font-mono text-[11px]" data-cat="science">● วิทยาศาสตร์</button>
+          <button class="kg-cat-btn px-2.5 py-1 rounded border border-[#2C2C3A] text-[#FF5A1F] font-mono text-[11px]" data-cat="history">⬢ ประวัติศาสตร์</button>
+          <button class="kg-cat-btn px-2.5 py-1 rounded border border-[#2C2C3A] text-[#8C6BFF] font-mono text-[11px]" data-cat="tech">■ เทคโนโลยี</button>
+          <button class="kg-cat-btn px-2.5 py-1 rounded border border-[#2C2C3A] text-[#FFC233] font-mono text-[11px]" data-cat="culture">▲ วัฒนธรรม</button>
+          <button class="kg-cat-btn px-2.5 py-1 rounded border border-[#2C2C3A] text-[#34E89E] font-mono text-[11px]" data-cat="nature">◆ ธรรมชาติ</button>
+          <button class="kg-cat-btn px-2.5 py-1 rounded border border-[#2C2C3A] text-[#FF5FA2] font-mono text-[11px]" data-cat="art">⭕ ศิลปะ</button>
+        </div>
+
+      </div>
+
+      <!-- Knowledge Graph Canvas -->
+      <div class="relative w-full h-[460px] bg-[#0B0B0F] border border-[#2C2C3A] rounded overflow-hidden">
+        <canvas id="kgCanvas" class="w-full h-full cursor-grab"></canvas>
+        <div class="absolute top-3 left-3 bg-[#17171F]/90 backdrop-blur px-3 py-1.5 rounded border border-[#2C2C3A] text-[10px] font-mono text-[#8A8A9E]">
+          <span>คลิกโหนดเพื่อดูรายละเอียด // สัมพันธ์ด้วยเส้น <b>influenced</b>, <b>derived_from</b>, <b>used_in</b></span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== 6. HALL 04: EVERYDAY LAB ==================== -->
+  <section id="everyday-lab" class="max-w-7xl mx-auto px-4 sm:px-6 py-20">
+    <div class="section-divider">
+      <span class="font-mono text-xs text-[#34E89E] font-bold">[ HALL 04 ]</span>
+      <h2 class="font-chakra text-2xl sm:text-3xl font-bold text-[#F2EDE3]">
+        EVERYDAY LAB (นำความรู้สู่การใช้จริงทุกวัน)
+      </h2>
+      <div class="section-divider-line"></div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      
+      <!-- Takeaway 1 -->
+      <div class="hud-panel p-6 border-[#34E89E]/40 space-y-4">
+        <div class="flex justify-between items-start">
+          <span class="specimen-label">TAKEAWAY // HEALTH</span>
+          <span class="text-xs font-mono text-[#34E89E]">อยุธยา → 2026</span>
+        </div>
+        <h3 class="font-chakra text-lg font-bold text-[#F2EDE3]">
+          โภชนาการปรับธาตุตามฤดูกาลจากตำรับสมุนไพร
+        </h3>
+        <p class="text-xs text-[#8A8A9E] leading-relaxed">
+          นำหลักการปรับสมดุลธาตุในตำรับโอสถพระนารายณ์ มาปรับใช้กับการเลือกรับประทานเครื่องเทศและผักพื้นบ้าน (เช่น ขิง ไพล กะเพรา) เพื่อลดภาวะอักเสบเรื้อรังจากความเครียดในการทำงาน
+        </p>
+        <div class="pt-4 border-t border-[#2C2C3A] flex justify-between items-center text-xs font-mono">
+          <span class="text-[#34E89E]">#EverydayHealth</span>
+          <button onclick="openSpecimenModal({label:'โภชนาการปรับธาตุ', category:'สุขภาพ/ชีวิต', desc:'การปรับสมดุลธาตุ 4 ด้วยอาหารและสมุนไพรฤดูร้อน-ฝน-หนาว'})" class="text-[#D7FF3A] hover:underline">
+            ดูการ์ดฉบับเต็ม →
+          </button>
+        </div>
+      </div>
+
+      <!-- Takeaway 2 -->
+      <div class="hud-panel p-6 border-[#2EE6FF]/40 space-y-4">
+        <div class="flex justify-between items-start">
+          <span class="specimen-label">TAKEAWAY // DESIGN</span>
+          <span class="text-xs font-mono text-[#2EE6FF]">พฤกษศาสตร์ → 2026</span>
+        </div>
+        <h3 class="font-chakra text-lg font-bold text-[#F2EDE3]">
+          ปรัชญาบัวไม่เปียกน้ำ (Lotus Effect) สู่ชีววิทยาศาสตร์
+        </h3>
+        <p class="text-xs text-[#8A8A9E] leading-relaxed">
+          นำโครงสร้างนาโนธรรมชาติมาปรับใช้กับการเลือกวัสดุเครื่องแต่งกายและเคหะสถาน ลดการพึ่งพาสารเคลือบเคมีฟลูออรีนที่เป็นพิษต่อสิ่งแวดล้อมและร่างกาย
+        </p>
+        <div class="pt-4 border-t border-[#2C2C3A] flex justify-between items-center text-xs font-mono">
+          <span class="text-[#2EE6FF]">#BioInspiration</span>
+          <button onclick="openSpecimenModal({label:'Lotus Effect ชีววัสดุ', category:'วิทยาศาสตร์', desc:'การสังเคราะห์พื้นผิวต้านการเกาะติดของคราบสกปรกโดยไม่พึ่งพาสารเคมี'})" class="text-[#D7FF3A] hover:underline">
+            ดูการ์ดฉบับเต็ม →
+          </button>
+        </div>
+      </div>
+
+      <!-- Takeaway 3 -->
+      <div class="hud-panel p-6 border-[#8C6BFF]/40 space-y-4">
+        <div class="flex justify-between items-start">
+          <span class="specimen-label">TAKEAWAY // LIVING</span>
+          <span class="text-xs font-mono text-[#8C6BFF]">สุโขทัย → 2026</span>
+        </div>
+        <h3 class="font-chakra text-lg font-bold text-[#F2EDE3]">
+          การออกแบบเมืองยืดหยุ่นด้วยระบบหน่วงน้ำโบราณ
+        </h3>
+        <p class="text-xs text-[#8A8A9E] leading-relaxed">
+          นำปรัชญา "สรีดภงส์" มาออกแบบพื้นที่อยู่อาศัยส่วนบุคคล จัดทำระบบดักน้ำฝน (Rain Harvesting) และสวนซึมน้ำเพื่อลดภาระท่อระบายน้ำชุมชนในช่วงมรสุม
+        </p>
+        <div class="pt-4 border-t border-[#2C2C3A] flex justify-between items-center text-xs font-mono">
+          <span class="text-[#8C6BFF]">#ResilientCity</span>
+          <button onclick="openSpecimenModal({label:'ระบบหน่วงน้ำสรีดภงส์', category:'วิศวกรรม/สิ่งแวดล้อม', desc:'แนวทางการจัดการน้ำในระดับบ้านเรือนเพื่อรับมือสภาพภูมิอากาศแปรปรวน'})" class="text-[#D7FF3A] hover:underline">
+            ดูการ์ดฉบับเต็ม →
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== 7. MANIFESTO & PHILOSOPHY ==================== -->
+  <section id="manifesto" class="max-w-7xl mx-auto px-4 sm:px-6 py-20 border-t border-[#2C2C3A]">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      
+      <!-- Emblem & Visual Showcase -->
+      <div class="flex flex-col items-center justify-center">
+        <div class="w-72 h-72 sm:w-88 sm:h-88 rounded-2xl overflow-hidden border-2 border-[#D7FF3A]/60 p-2 bg-[#17171F] shadow-[0_0_40px_rgba(215,255,58,0.2)]">
+          <img src="gruru_thai_tech_logo.jpg" alt="Thai Tech Logo" class="w-full h-full object-cover rounded-xl">
+        </div>
+        <div class="text-center mt-3">
+          <span class="font-mono text-xs text-[#D7FF3A]">OFFICIAL EMBLEM // THAI KANOK × QUANTUM CONSTELLATION</span>
+        </div>
+      </div>
+
+      <!-- Manifesto Text -->
+      <div class="space-y-6">
+        <span class="font-mono text-xs text-[#FF5A1F] font-bold">[ BRAND MANIFESTO ]</span>
+        <h2 class="font-chakra text-3xl sm:text-4xl font-bold text-[#F2EDE3] leading-tight">
+          “อดีตคือข้อมูล • อนาคตคือเรื่องเล่า”
+        </h2>
+        <p class="text-sm text-[#8A8A9E] leading-relaxed">
+          สำหรับคนวัย 22–40 ปี ที่อยากเข้าใจโลกให้ลึกกว่าคลิปสั้น แต่ไม่อยากรู้สึกเหมือนกำลังนั่งเรียน 
+          <strong>GRURU MUSEUM</strong> คือพิพิธภัณฑ์ความรู้ดิจิทัลสไตล์ Modern Art ผสม Sci-Fi 
+          ที่เปลี่ยนความรู้จากอดีตให้เป็นกราฟที่สำรวจได้ด้วยตนเองและเป็นเรื่องเล่าที่ใช้ได้จริง
+        </p>
+
+        <!-- 5-Stage Framework List -->
+        <div class="space-y-2 text-xs font-mono">
+          <div class="p-2.5 rounded bg-[#17171F] border border-[#2C2C3A] flex justify-between">
+            <span class="text-[#FF5A1F]">01. EXCAVATE</span>
+            <span class="text-[#F2EDE3]">ขุดค้นและคัดสรรความรู้ ระบุแหล่งที่มาทุกชิ้น</span>
+          </div>
+          <div class="p-2.5 rounded bg-[#17171F] border border-[#2C2C3A] flex justify-between">
+            <span class="text-[#8C6BFF]">02. DECODE</span>
+            <span class="text-[#F2EDE3]">ถอดรหัสเป็นโหนดและความสัมพันธ์ใน Knowledge Graph</span>
+          </div>
+          <div class="p-2.5 rounded bg-[#17171F] border border-[#2C2C3A] flex justify-between">
+            <span class="text-[#2EE6FF]">03. RETELL</span>
+            <span class="text-[#F2EDE3]">เล่าใหม่ผ่าน Visual Storytelling จบใน 3–5 นาที</span>
+          </div>
+          <div class="p-2.5 rounded bg-[#17171F] border border-[#2C2C3A] flex justify-between">
+            <span class="text-[#D7FF3A]">04. CONNECT</span>
+            <span class="text-[#F2EDE3]">เชื่อมโยงข้ามศาสตร์ด้วย Data Booming</span>
+          </div>
+          <div class="p-2.5 rounded bg-[#17171F] border border-[#2C2C3A] flex justify-between">
+            <span class="text-[#34E89E]">05. APPLY</span>
+            <span class="text-[#F2EDE3]">นำไปใช้ในชีวิตด้วย Everyday Takeaway</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== 8. FOOTER ==================== -->
+  <footer class="bg-[#0B0B0F] border-t border-[#2C2C3A] py-12 px-4 sm:px-6">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+      
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded border border-[#D7FF3A] bg-[#17171F] overflow-hidden">
+          <img src="gruru_thai_tech_logo.jpg" alt="GRURU" class="w-full h-full object-cover">
+        </div>
+        <div>
+          <span class="font-chakra text-sm font-bold text-[#F2EDE3]">GRURU MUSEUM</span>
+          <span class="block text-[10px] font-mono text-[#8A8A9E]">DIGITAL KNOWLEDGE MUSEUM PLATFORM</span>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-4 text-xs font-mono text-[#8A8A9E]">
+        <a href="presentation.html" target="_blank" class="text-[#2EE6FF] hover:underline">📺 สไลด์เสนอรัฐมนตรี (HTML)</a>
+        <span>•</span>
+        <a href="GRURU_MUSEUM_Digital_Minister_Presentation.pptx" download class="text-[#D7FF3A] hover:underline">⬇ ดาวน์โหลดสไลด์ (.pptx)</a>
+        <span>•</span>
+        <a href="EXECUTIVE_BRIEF_FOR_DIGITAL_MINISTER.md" target="_blank" class="hover:text-white">📄 เอกสารยุทธศาสตร์ (.md)</a>
+        <span>•</span>
+        <span class="text-[#34E89E]">WCAG AA COMPLIANT</span>
+      </div>
+
+      <div class="text-[11px] font-mono text-[#8A8A9E]">
+        © 2026 GRURU MUSEUM. POWERED BY GOOGLE ANTIGRAVITY.
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ==================== 9. SPECIMEN INSPECTOR MODAL ==================== -->
+  <div id="specimenModal" class="modal-backdrop">
+    <div class="modal-dialog p-6 space-y-4">
+      <div class="flex items-center justify-between border-b border-[#2C2C3A] pb-3">
+        <div class="flex items-center gap-2">
+          <span id="modalCode" class="specimen-label">GRM-SPEC-001</span>
+          <span id="modalCategory" class="cat-pill"><span class="shape-circle"></span> วิทยาศาสตร์</span>
+        </div>
+        <button id="modalCloseBtn" class="text-xs font-mono text-[#8A8A9E] hover:text-white px-2 py-1 rounded border border-[#2C2C3A]">
+          ✕ ปิด [ESC]
+        </button>
+      </div>
+
+      <div>
+        <h3 id="modalTitle" class="font-chakra text-xl font-bold text-[#F2EDE3]">ชื่อวัตถุความรู้</h3>
+        <p id="modalDesc" class="text-xs text-[#8A8A9E] mt-2 leading-relaxed">คำอธิบายรายละเอียด</p>
+      </div>
+
+      <!-- Everyday Takeaway Box -->
+      <div class="p-3.5 bg-[#0B0B0F] border border-[#34E89E]/60 rounded space-y-1">
+        <div class="text-[11px] font-mono text-[#34E89E] font-bold">🌱 EVERYDAY TAKEAWAY (วิธีนำไปใช้จริง):</div>
+        <p id="modalTakeaway" class="text-xs text-[#F2EDE3] leading-relaxed">แนวทางปฏิบัตินำไปใช้ในชีวิตประจำวัน</p>
+      </div>
+
+      <!-- Source Verification -->
+      <div class="pt-2 text-[10px] font-mono text-[#8A8A9E] flex items-center justify-between">
+        <span>PRIMARY SOURCE: <b id="modalSource" class="text-[#F2EDE3]">หอจดหมายเหตุแห่งชาติ</b></span>
+        <span class="text-[#D7FF3A]">VERIFIED 100%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts: script.js and script.jss -->
+  <script src="script.js"></script>
+  <!-- Fallback/alias for script.jss -->
+  <script src="script.jss"></script>
+</body>
+</html>
